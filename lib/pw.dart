@@ -8,6 +8,13 @@ import 'package:pw/pwconfig.dart';
 import 'pwthemecontroller.dart';
 import 'pwutils.dart';
 
+export 'package:pw/pw.dart';
+export 'package:pw/pwconfig.dart' show PWConfig;
+export 'package:pw/pwerrorlog.dart' show PWErrorLog;
+export 'package:pw/pwstoragecontroller.dart' show PWStorageController;
+export 'package:pw/pwthemecontroller.dart' show PWThemeController;
+export 'package:pw/pwutils.dart' show PWUtils;
+
 class PW extends StatelessWidget {
   final String title;
   final Widget home;
@@ -15,7 +22,7 @@ class PW extends StatelessWidget {
 
   const PW({
     Key? key,
-    this.title = PWAppConfig.appName,
+    this.title = PWConfig.appName,
     required this.home,
     required this.builder,
   }) : super(key: key);

@@ -10,25 +10,23 @@ import 'pwerrorlog.dart';
 class PWUtils {
   // Retorna a data no formato definido
   static String getDate(DateTime date) =>
-      DateFormat(PWAppConfig.dateFormat).format(date);
+      DateFormat(PWConfig.dateFormat).format(date);
 
   // Retorna a data no formato definido
   static String getTime(DateTime date) =>
-      DateFormat(PWAppConfig.timeFormat).format(date);
+      DateFormat(PWConfig.timeFormat).format(date);
 
   // Retorna a data no formato definido
   static String getDateTime(DateTime date) =>
-      DateFormat(PWAppConfig.dateTimeFormat).format(date);
+      DateFormat(PWConfig.dateTimeFormat).format(date);
 
   // Retorna o valor no formato definido
   static String getMoney(double money) =>
-      NumberFormat(PWAppConfig.moneyFormat, PWAppConfig.localeFormat)
-          .format(money);
+      NumberFormat(PWConfig.moneyFormat, PWConfig.localeFormat).format(money);
 
   // Retorna o valor no formato definido
   static String formatCurrency(double money) =>
-      NumberFormat(PWAppConfig.moneyFormat, PWAppConfig.localeFormat)
-          .format(money);
+      NumberFormat(PWConfig.moneyFormat, PWConfig.localeFormat).format(money);
 
   static double stringToDouble(String money) {
     try {
@@ -46,10 +44,9 @@ class PWUtils {
   static getDateFromString(String? valor) {
     try {
       if (valor == null) {
-        return DateFormat(PWAppConfig.dateFormat)
-            .parse(DateTime.now().toString());
+        return DateFormat(PWConfig.dateFormat).parse(DateTime.now().toString());
       } else {
-        return DateFormat(PWAppConfig.dateFormat).parse(valor);
+        return DateFormat(PWConfig.dateFormat).parse(valor);
       }
     } catch (e) {
       PWErrorLog.logError(e);

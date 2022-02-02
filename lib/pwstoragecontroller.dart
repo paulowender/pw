@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:get/get.dart';
+import 'package:pw/pwcontroller.dart';
 
 import 'pwthemecontroller.dart';
 
-class PWStorageController extends GetxController {
+class PWStorageController extends PWController {
   File configFile = File('config');
 
   Future replaceConfig(String data) async =>

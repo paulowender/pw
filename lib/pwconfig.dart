@@ -1,6 +1,6 @@
 import 'dart:io';
 
-class PWAppConfig {
+class PWConfig {
   static const String appName = 'PW FLUTTER APP';
   static const String appVersion = "1.0.0";
   static const String appAuthor = "App Author";
