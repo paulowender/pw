@@ -1,0 +1,6 @@
+2022-02-02 11:13:13.288852 - FormatException: Invalid double
+ab
+2022-02-02 11:18:05.017361 - FormatException: Invalid double
+ab
+2022-02-02 11:19:16.350462 - FormatException: Invalid double
+ab
