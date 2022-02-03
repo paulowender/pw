@@ -11,17 +11,18 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+Este pacote tem por finalidade fornecer uma abstração dos principais componentes do flutter de forma a acelerar o desenvolvimento como um mini framework, provendo controle de tema e padrões de layout.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+Theme Controller
+Theme Switch Button
+Buttons
+Fields
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+Este pacote tem algumas dependências que precisam ser consideradas, como por exemplo o Get e Get storage.
 
 ## Usage
 
@@ -29,7 +30,14 @@ TODO: Include short and useful examples for package users. Add longer examples
 to `/example` folder. 
 
 ```dart
-const like = 'sample';
+// THEME Controller
+final pw = PWThemeController();
+pw.isDark? // true or false
+pw.theme // = isDark? PWTheme.light : PWTheme.dark
+
+// To change theme in any screen
+PWThemeSwitch() // => SwitchListTile
+PWThemeSwitch(icoMode: true) // => IconButton
 ```
 
 ## Additional information

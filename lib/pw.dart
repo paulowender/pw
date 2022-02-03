@@ -20,20 +20,26 @@ class PW extends StatelessWidget {
   final String title;
   final Widget home;
   final Widget Function(BuildContext, Widget?)? builder;
+  final ThemeData? themeLight;
+  final ThemeData? themeDark;
 
   const PW({
     Key? key,
     this.title = PWConfig.appName,
     required this.home,
     required this.builder,
+    this.themeLight,
+    this.themeDark,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<PWThemeController>(
       init: PWThemeController(),
-      builder: (theme) => GetMaterialApp(
-        theme: theme.isDark ? theme.buildDarkTheme() : theme.buildLightTheme(),
+      builder: (controller) => GetMaterialApp(
+        theme: controller.isDark
+            ? themeDark ?? controller.theme
+            : themeLight ?? controller.theme,
         debugShowCheckedModeBanner: false,
         defaultTransition: Transition.rightToLeftWithFade,
         title: title,
@@ -66,19 +72,7 @@ class PW extends StatelessWidget {
     return Tooltip(
       message: tooltip ?? '',
       child: ElevatedButton(
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(
-              color ?? Get.find<PWThemeController>().theme.colorScheme.primary),
-          shape: borderColor != null
-              ? MaterialStateProperty.resolveWith(
-                  (states) => RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        side: BorderSide(
-                          color: borderColor,
-                        ),
-                      ))
-              : null,
-        ),
+        style: buttonStyle(color: color, borderColor: borderColor),
         child: Text(title),
         onPressed: onPressed,
       ),
@@ -127,6 +121,7 @@ class PW extends StatelessWidget {
     required void Function() onPressed,
   }) {
     return ElevatedButton.icon(
+      style: buttonStyle(),
       label: Text(title),
       icon: Icon(icon),
       onPressed: onPressed,
@@ -318,5 +313,42 @@ class PW extends StatelessWidget {
             onConfirm: onConfirm,
           );
         });
+  }
+
+  static buttonStyle({Color? color, Color? borderColor}) {
+    return ButtonStyle(
+      backgroundColor: MaterialStateProperty.all(
+          color ?? Get.find<PWThemeController>().theme.colorScheme.primary),
+      shape: borderColor != null
+          ? MaterialStateProperty.resolveWith(
+              (states) => RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    side: BorderSide(
+                      color: borderColor,
+                    ),
+                  ))
+          : null,
+    );
+  }
+
+  static checkboxTile(
+      {required void Function(bool?)? onChanged,
+      bool? value = false,
+      required String title,
+      required String subtitle}) {
+    final primay = Get.find<PWThemeController>().theme.colorScheme.primary;
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 500),
+      decoration: BoxDecoration(
+        border: Border.all(color: value ?? false ? primay : Colors.grey),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: CheckboxListTile(
+        value: value ?? false,
+        activeColor: primay,
+        onChanged: onChanged,
+        title: Text(title),
+      ),
+    );
   }
 }

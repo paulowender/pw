@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pw/pwthemecontroller.dart';
 
-class PWController extends GetxController {
+class PWController extends PWThemeController {
   // loading
   bool loading = true;
 
