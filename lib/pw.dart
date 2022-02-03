@@ -13,6 +13,7 @@ export 'package:pw/pwconfig.dart' show PWConfig;
 export 'package:pw/pwerrorlog.dart' show PWErrorLog;
 export 'package:pw/pwstoragecontroller.dart' show PWStorageController;
 export 'package:pw/pwthemecontroller.dart' show PWThemeController;
+export 'package:pw/pwthemeswitch.dart' show PWThemeSwitch;
 export 'package:pw/pwutils.dart' show PWUtils;
 
 class PW extends StatelessWidget {
@@ -84,6 +85,17 @@ class PW extends StatelessWidget {
     );
   }
 
+  // TEXT AREA
+  static TextField textArea(String text) {
+    return TextField(
+      controller: TextEditingController(text: text),
+      maxLines: null,
+      decoration: const InputDecoration(
+        border: InputBorder.none,
+      ),
+    );
+  }
+
   // TEXTBUTTON
   static TextButton buttonText({
     required String title,
@@ -150,7 +162,7 @@ class PW extends StatelessWidget {
   }
 
   // CONFIRM DIALOG
-  static Future<void> confirmDialog(
+  static Future<bool> confirmDialog(
     BuildContext context, {
     String title = 'Confirmação',
     String content = '',
@@ -194,12 +206,16 @@ class PW extends StatelessWidget {
   }
 
   // INPUT FORM FIELD
-  static Widget formField<T>(String label, String initialValue,
-      void Function(String value) onSubmited) {
+  static Widget formField<T>(
+    String label,
+    String initialValue,
+    void Function(String value) onSubmited, {
+    TextEditingController? controller,
+  }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: TextFormField(
-        controller: TextEditingController(text: initialValue),
+        controller: controller ?? TextEditingController(text: initialValue),
         decoration: InputDecoration(
           labelText: label,
           border: OutlineInputBorder(
