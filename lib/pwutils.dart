@@ -50,7 +50,7 @@ class PWUtils {
         return DateFormat(PWConfig.dateFormat).parse(valor);
       }
     } catch (e) {
-      PWErrorLog.logError(e);
+      PWErrorLog.logError('Erro ao converter data: $e');
       return valor;
     }
   }
@@ -63,7 +63,7 @@ class PWUtils {
         return date;
       }
     } catch (e) {
-      PWErrorLog.logError(e);
+      PWErrorLog.logError('Erro ao converter data: $e');
       return date;
     }
   }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:pw/pwconfig.dart';
+import 'package:pw/pwerrorlog.dart';
 
 import 'pwthemecontroller.dart';
 import 'pwutils.dart';
@@ -24,6 +25,8 @@ class PW extends StatelessWidget {
   final Widget Function(BuildContext, Widget?)? builder;
   final ThemeData? themeLight;
   final ThemeData? themeDark;
+
+  static get close => Get.back;
 
   const PW({
     Key? key,
@@ -380,31 +383,96 @@ class PW extends StatelessWidget {
     required Widget Function(T item) itemBuilder,
   }) {
     final primay = Get.find<PWThemeController>().theme.colorScheme.primary;
-    return AnimatedContainer(
-        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-        duration: const Duration(milliseconds: 500),
-        decoration: BoxDecoration(
-          border: Border.all(color: primay),
-          borderRadius: BorderRadius.circular(4),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(title),
-            DropdownButton<T>(
-              underline: Container(),
-              alignment: Alignment.centerRight,
-              borderRadius: BorderRadius.circular(4),
-              value: selectedValue,
-              items: list.map((e) {
-                return DropdownMenuItem<T>(
-                  value: e,
-                  child: itemBuilder(e),
-                );
-              }).toList(),
-              onChanged: onChanged,
-            ),
-          ],
-        ));
+    try {
+      return AnimatedContainer(
+          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+          duration: const Duration(milliseconds: 500),
+          decoration: BoxDecoration(
+            border: Border.all(color: primay),
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(title),
+              DropdownButton<T>(
+                underline: Container(),
+                alignment: Alignment.centerRight,
+                borderRadius: BorderRadius.circular(4),
+                value: selectedValue,
+                items: list.map((e) {
+                  return DropdownMenuItem<T>(
+                    value: e,
+                    child: itemBuilder(e),
+                  );
+                }).toList(),
+                onChanged: onChanged,
+              ),
+            ],
+          ));
+    } catch (e) {
+      PWErrorLog.logError('PWDropdown Error $e');
+      return Container();
+    }
   }
+
+  static inputDialog({
+    required String title,
+    required List<InputDialog> inputs,
+    required List<Tooltip> actions,
+  }) {
+    final primay = Get.find<PWThemeController>().theme.colorScheme.primary;
+    return AlertDialog(
+      title: Text(title),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: inputs.map((inputDialog) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: TextFormField(
+              controller: inputDialog.controller,
+              decoration: InputDecoration(
+                labelText: inputDialog.hintText,
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: primay,
+                  ),
+                ),
+              ),
+              onFieldSubmitted: (value) {
+                inputDialog.validator!(value);
+              },
+              keyboardType: TextInputType.number,
+              textInputAction: TextInputAction.next,
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+}
+
+class InputDialog {
+  InputDialog({
+    this.initialText,
+    this.hintText,
+    this.obscureText = false,
+    this.validator,
+    this.keyboardType,
+    this.prefixText,
+    this.suffixText,
+    this.minLines,
+    this.maxLines = 1,
+    required this.controller,
+  });
+  final String? initialText;
+  final String? hintText;
+  final bool obscureText;
+  final FormFieldValidator<String>? validator;
+  final TextInputType? keyboardType;
+  final String? prefixText;
+  final String? suffixText;
+  final int? minLines;
+  final int maxLines;
+  final TextEditingController controller;
 }
