@@ -3,6 +3,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get/utils.dart';
 import 'package:intl/intl.dart';
+import 'package:pw/pwcrypto.dart';
 
 import 'pwconfig.dart';
 import 'pwerrorlog.dart';
@@ -105,5 +106,13 @@ class PWUtils {
   // Retorna se é um numero
   static bool isNumber(String value) {
     return isDouble(value) || isInt(value);
+  }
+
+  static encrypt(String senha) {
+    return PWCrypto.stringToHex(senha);
+  }
+
+  static decrypt(String senha) {
+    return PWCrypto.hexToString(senha);
   }
 }

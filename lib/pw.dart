@@ -17,6 +17,8 @@ export 'package:pw/pwthemeswitch.dart' show PWThemeSwitch;
 export 'package:pw/pwutils.dart' show PWUtils;
 
 class PW extends StatelessWidget {
+  static Color primary =
+      Get.find<PWThemeController>().theme.colorScheme.primary;
   final String title;
   final Widget home;
   final Widget Function(BuildContext, Widget?)? builder;
@@ -204,9 +206,11 @@ class PW extends StatelessWidget {
   static Widget formField<T>(
     String label,
     String initialValue,
-    void Function(String value) onSubmited, {
+    void Function(String value)? onSubmited, {
     TextEditingController? controller,
+    bool required = false,
   }) {
+    final primary = Get.find<PWThemeController>().theme.colorScheme.primary;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: TextFormField(
@@ -215,14 +219,19 @@ class PW extends StatelessWidget {
           labelText: label,
           border: OutlineInputBorder(
             borderSide: BorderSide(
-              // MaterialStateProperty.all(
-              // color ?? Get.find<PWThemeController>().theme.colorScheme.primary)
-              color: Get.find<PWThemeController>().theme.colorScheme.primary,
+              color: primary,
             ),
           ),
         ),
         onFieldSubmitted: onSubmited,
         textInputAction: TextInputAction.next,
+        readOnly: onSubmited == null,
+        validator: (value) {
+          if (required && value == '') {
+            return 'Campo obrigatório';
+          }
+          return null;
+        },
       ),
     );
   }
@@ -236,7 +245,11 @@ class PW extends StatelessWidget {
         controller: TextEditingController(text: initialValue),
         decoration: InputDecoration(
           labelText: label,
-          border: const OutlineInputBorder(),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: primary,
+            ),
+          ),
         ),
         onFieldSubmitted: (value) {
           PWUtils.isNumber(value)
@@ -258,7 +271,12 @@ class PW extends StatelessWidget {
         controller: TextEditingController(text: initialValue),
         decoration: InputDecoration(
           labelText: label,
-          border: const OutlineInputBorder(),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(
+              color: primary,
+            ),
+          ),
         ),
         onFieldSubmitted: (value) {
           PWUtils.isNumber(value)
@@ -331,16 +349,17 @@ class PW extends StatelessWidget {
     );
   }
 
-  static checkboxTile(
-      {required void Function(bool?)? onChanged,
-      bool? value = false,
-      required String title,
-      required String subtitle}) {
+  static checkboxTile({
+    required void Function(bool?)? onChanged,
+    bool? value = false,
+    required String title,
+    String? subtitle,
+  }) {
     final primay = Get.find<PWThemeController>().theme.colorScheme.primary;
     return AnimatedContainer(
       duration: const Duration(milliseconds: 500),
       decoration: BoxDecoration(
-        border: Border.all(color: value ?? false ? primay : Colors.grey),
+        border: Border.all(color: primay),
         borderRadius: BorderRadius.circular(4),
       ),
       child: CheckboxListTile(
@@ -348,7 +367,44 @@ class PW extends StatelessWidget {
         activeColor: primay,
         onChanged: onChanged,
         title: Text(title),
+        subtitle: subtitle != null ? Text(subtitle) : null,
       ),
     );
+  }
+
+  static selectDropdown<T>({
+    required String title,
+    required T selectedValue,
+    required List<T> list,
+    required void Function(T?) onChanged,
+    required Widget Function(T item) itemBuilder,
+  }) {
+    final primay = Get.find<PWThemeController>().theme.colorScheme.primary;
+    return AnimatedContainer(
+        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+        duration: const Duration(milliseconds: 500),
+        decoration: BoxDecoration(
+          border: Border.all(color: primay),
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(title),
+            DropdownButton<T>(
+              underline: Container(),
+              alignment: Alignment.centerRight,
+              borderRadius: BorderRadius.circular(4),
+              value: selectedValue,
+              items: list.map((e) {
+                return DropdownMenuItem<T>(
+                  value: e,
+                  child: itemBuilder(e),
+                );
+              }).toList(),
+              onChanged: onChanged,
+            ),
+          ],
+        ));
   }
 }
