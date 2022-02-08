@@ -359,6 +359,15 @@ class PW extends StatelessWidget {
     String? subtitle,
   }) {
     final primay = Get.find<PWThemeController>().theme.colorScheme.primary;
+    _buidSubtitle(subtitle) {
+      if (subtitle == null) return null;
+      if (subtitle == '') return null;
+      return Padding(
+        padding: const EdgeInsets.only(top: 4),
+        child: Text(subtitle, style: TextStyle(color: Colors.grey)),
+      );
+    }
+
     return AnimatedContainer(
       duration: const Duration(milliseconds: 500),
       decoration: BoxDecoration(
@@ -370,7 +379,7 @@ class PW extends StatelessWidget {
         activeColor: primay,
         onChanged: onChanged,
         title: Text(title),
-        subtitle: subtitle != null ? Text(subtitle) : null,
+        subtitle: _buidSubtitle(subtitle),
       ),
     );
   }
@@ -447,6 +456,32 @@ class PW extends StatelessWidget {
             ),
           );
         }).toList(),
+      ),
+    );
+  }
+
+  static Future<T?> showSelector<T>(
+      {required String title,
+      required List<T> items,
+      required Widget Function(T item) itemBuilder}) {
+    // Mostra o selector
+    return showDialog<T>(
+      context: Get.overlayContext!,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        title: Text(title),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: items.map((item) => itemBuilder(item)).toList(),
+          ),
+        ),
+        actionsAlignment: MainAxisAlignment.center,
+        actions: [
+          PW.button(
+            title: 'Ok',
+            onPressed: () => Get.back(),
+          ),
+        ],
       ),
     );
   }
