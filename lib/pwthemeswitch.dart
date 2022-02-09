@@ -22,7 +22,7 @@ class PWThemeSwitch extends StatelessWidget {
         return SizedBox(
           width: 250,
           child: SwitchListTile(
-            title: Text(text ?? (theme.isDark ? 'Light Mode' : 'Dark Mode')),
+            title: Text(text ?? 'Modo Escuro'),
             value: theme.isDark,
             onChanged: theme.changeThemeMode,
             activeColor: Colors.grey[600],

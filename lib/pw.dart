@@ -364,7 +364,7 @@ class PW extends StatelessWidget {
       if (subtitle == '') return null;
       return Padding(
         padding: const EdgeInsets.only(top: 4),
-        child: Text(subtitle, style: TextStyle(color: Colors.grey)),
+        child: Text(subtitle, style: const TextStyle(color: Colors.grey)),
       );
     }
 
