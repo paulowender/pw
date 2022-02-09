@@ -26,7 +26,7 @@ class PWTheme {
           onPrimary: Colors.white,
           onSecondary: Color(0XFF43A047),
           error: redDark,
-          primaryContainer: white,
+          primaryContainer: Colors.white,
         ),
         cardTheme: const CardTheme(
           color: cardLight,
@@ -47,6 +47,7 @@ class PWTheme {
           onSecondary: Colors.white,
           error: redDark,
           inversePrimary: black,
+          // primaryContainer: Color.fromARGB(255, 43, 42, 42),
         ),
         appBarTheme: const AppBarTheme(backgroundColor: green));
     return theme;

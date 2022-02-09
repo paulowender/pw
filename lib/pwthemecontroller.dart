@@ -19,6 +19,7 @@ class PWThemeController extends GetxController {
 
   void toggleTheme() {
     changeThemeMode(!isDark);
+    update();
   }
 
   @override

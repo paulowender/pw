@@ -212,12 +212,15 @@ class PW extends StatelessWidget {
     void Function(String value)? onSubmited, {
     TextEditingController? controller,
     bool required = false,
+    Widget? suffix,
+    int? maxLines = 1,
   }) {
     final primary = Get.find<PWThemeController>().theme.colorScheme.primary;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: TextFormField(
         controller: controller ?? TextEditingController(text: initialValue),
+        maxLines: maxLines,
         decoration: InputDecoration(
           labelText: label,
           border: OutlineInputBorder(
@@ -225,6 +228,7 @@ class PW extends StatelessWidget {
               color: primary,
             ),
           ),
+          suffix: suffix,
         ),
         onFieldSubmitted: onSubmited,
         textInputAction: TextInputAction.next,
