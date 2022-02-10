@@ -5,11 +5,13 @@ import 'pwthemecontroller.dart';
 
 class PWThemeSwitch extends StatelessWidget {
   final bool iconMode;
-  const PWThemeSwitch({Key? key, this.iconMode = false}) : super(key: key);
+  final Color? iconColor;
+  const PWThemeSwitch({Key? key, this.iconMode = false, this.iconColor})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     if (iconMode) {
-      return iconButton();
+      return iconButton(iconColor: iconColor);
     } else {
       return switchButton();
     }
@@ -32,7 +34,7 @@ class PWThemeSwitch extends StatelessWidget {
     );
   }
 
-  static Widget iconButton({String? text}) {
+  static Widget iconButton({String? text, Color? iconColor}) {
     return GetBuilder<PWThemeController>(
       init: PWThemeController(),
       builder: (theme) {
@@ -40,6 +42,7 @@ class PWThemeSwitch extends StatelessWidget {
           tooltip: text ?? (theme.isDark ? 'Tema Claro' : 'Tema Escuro'),
           icon: Icon(
             theme.isDark ? Icons.wb_sunny : Icons.brightness_2,
+            color: iconColor,
           ),
           onPressed: () => theme.changeThemeMode(!theme.isDark),
         );

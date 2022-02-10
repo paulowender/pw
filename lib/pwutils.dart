@@ -74,7 +74,7 @@ class PWUtils {
 
   static copyToClipboard(String text) {
     FlutterClipboard.copy(text).then((value) {
-      EasyLoading.showSuccess('Valor copiado\n$text');
+      EasyLoading.showSuccess('Copiado\n$text');
     }).onError((error, stackTrace) {
       EasyLoading.showError('Falha ao copiar');
     });

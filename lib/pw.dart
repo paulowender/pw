@@ -214,6 +214,7 @@ class PW extends StatelessWidget {
     bool required = false,
     Widget? suffix,
     int? maxLines = 1,
+    bool? readOnly = false,
   }) {
     final primary = Get.find<PWThemeController>().theme.colorScheme.primary;
     return Padding(
@@ -232,7 +233,7 @@ class PW extends StatelessWidget {
         ),
         onFieldSubmitted: onSubmited,
         textInputAction: TextInputAction.next,
-        readOnly: onSubmited == null,
+        readOnly: onSubmited == null || readOnly == true,
         validator: (value) {
           if (required && value == '') {
             return 'Campo obrigatório';
@@ -245,11 +246,21 @@ class PW extends StatelessWidget {
 
   // INPUT INT FORM FIELD
   static Widget formFieldInt<T>(
-      String label, String initialValue, void Function(int value) onSubmited) {
+    String label,
+    String initialValue,
+    void Function(int value)? onSubmited, {
+    TextEditingController? controller,
+    bool required = false,
+    Widget? suffix,
+    int? maxLines = 1,
+    bool? readOnly = false,
+  }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: TextFormField(
-        controller: TextEditingController(text: initialValue),
+        controller: controller ?? TextEditingController(text: initialValue),
+        maxLines: maxLines,
+        readOnly: onSubmited == null || readOnly == true,
         decoration: InputDecoration(
           labelText: label,
           border: OutlineInputBorder(
@@ -259,9 +270,11 @@ class PW extends StatelessWidget {
           ),
         ),
         onFieldSubmitted: (value) {
-          PWUtils.isNumber(value)
-              ? onSubmited(int.parse(value))
-              : EasyLoading.showToast('Valor inválido');
+          if (onSubmited != null) {
+            PWUtils.isNumber(value)
+                ? onSubmited(int.parse(value))
+                : EasyLoading.showToast('Valor inválido');
+          }
         },
         keyboardType: TextInputType.number,
         textInputAction: TextInputAction.next,
