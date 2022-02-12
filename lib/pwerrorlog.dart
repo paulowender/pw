@@ -6,13 +6,14 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'pwconfig.dart';
 
 class PWErrorLog {
-  static void logError(dynamic error) {
+  static void logError(dynamic error, {bool showToast = false}) {
     String message = '${DateTime.now()} - ${error.toString()}\n';
     String path = PWConfig.errorLogPath;
     Directory(path).createSync();
     File('$path/log.txt').writeAsStringSync(message, mode: FileMode.append);
-    EasyLoading.showToast('Houston, we have a problem!',
-        duration: const Duration(seconds: 3));
+    if (showToast) {
+      EasyLoading.showError('Error: $error');
+    }
     if (kDebugMode) {
       print(message);
     }

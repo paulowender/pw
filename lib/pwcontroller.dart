@@ -55,10 +55,3 @@ class PWController extends PWThemeController {
     Get.back<T>();
   }
 }
-
-class Janela {
-  int index;
-  String titulo;
-  Widget page;
-  Janela({required this.index, required this.titulo, required this.page});
-}

@@ -164,12 +164,12 @@ class PW extends StatelessWidget {
   // CONFIRM DIALOG
   static Future<bool> confirmDialog(
     BuildContext context, {
-    String title = 'Confirmação',
+    String title = 'Confirmar',
     String content = '',
     String confirmText = 'Confirmar',
     String cancelText = 'Cancelar',
     Color confirmColor = Colors.red,
-    Color cancelColor = Colors.grey,
+    Color cancelColor = const Color.fromARGB(255, 56, 56, 56),
     required Function onConfirm,
   }) async {
     var confirmStyle =
@@ -332,7 +332,7 @@ class PW extends StatelessWidget {
     String confirmText = 'Confirmar',
     String cancelText = 'Cancelar',
     Color confirmColor = Colors.red,
-    Color cancelColor = Colors.grey,
+    Color cancelColor = const Color.fromARGB(255, 41, 41, 41),
     required Function onConfirm,
   }) {
     return iconButton(
