@@ -245,6 +245,7 @@ class PW extends StatelessWidget {
     Widget? suffix,
     int? maxLines = 1,
     bool? readOnly = false,
+    bool? obscureText = false,
   }) {
     final primary = Get.find<PWThemeController>().theme.colorScheme.primary;
     return Padding(
@@ -265,6 +266,7 @@ class PW extends StatelessWidget {
         onChanged: onChanged,
         textInputAction: TextInputAction.next,
         readOnly: readOnly == true,
+        obscureText: obscureText == true,
         validator: (value) {
           if (required && value == '') {
             return 'Campo obrigatório';
@@ -592,6 +594,29 @@ class PW extends StatelessWidget {
             onPressed: () => Get.back(),
           ),
         ],
+      ),
+    );
+  }
+
+  static Widget buildInfo(String text, String tooltip,
+      {int flex = 1, IconData? icon}) {
+    return Expanded(
+      flex: flex,
+      child: Tooltip(
+        message: tooltip,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              if (icon != null) Icon(icon),
+              const SizedBox(width: 8),
+              Text(
+                text,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
