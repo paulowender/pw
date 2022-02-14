@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:pw/pw.dart';
 
@@ -39,12 +40,13 @@ class PWController extends PWThemeController {
     openedMenu = null;
     openedMenuName = "";
     update();
+    if (EasyLoading.isShow) EasyLoading.dismiss();
   }
 
   // Abre a tela no dialog simulando uma nova tela
-  Future<T> openPage<T>(Widget iten) async {
+  Future<T?> openPage<T>(Widget iten) async {
     // Abre a tela
-    return await showDialog(
+    return await showDialog<T>(
       context: Get.overlayContext!,
       builder: (context) => iten,
     );
@@ -53,5 +55,6 @@ class PWController extends PWThemeController {
   void closePage<T>() {
     // Fecha a tela
     Get.back<T>();
+    if (EasyLoading.isShow) EasyLoading.dismiss();
   }
 }

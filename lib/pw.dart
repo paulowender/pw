@@ -161,6 +161,35 @@ class PW extends StatelessWidget {
         });
   }
 
+  // BUTTON WITH CONFIRM
+  static Widget buttonWithConfirmIcon(
+    BuildContext context, {
+    required String title,
+    String content = 'Deseja realmente executar esta ação?',
+    String confirmText = 'Confirmar',
+    String cancelText = 'Cancelar',
+    Color confirmColor = Colors.red,
+    Color cancelColor = Colors.grey,
+    required Function onConfirm,
+    IconData icon = Icons.check,
+  }) {
+    return buttonWithIcon(
+        title: title,
+        icon: icon,
+        onPressed: () {
+          confirmDialog(
+            context,
+            title: title,
+            content: content,
+            confirmText: confirmText,
+            cancelText: cancelText,
+            confirmColor: confirmColor,
+            cancelColor: cancelColor,
+            onConfirm: onConfirm,
+          );
+        });
+  }
+
   // CONFIRM DIALOG
   static Future<bool> confirmDialog(
     BuildContext context, {
@@ -202,6 +231,47 @@ class PW extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+
+  // INPUT FORM FIELD
+  static Widget textField<T>({
+    String label = '',
+    String initialValue = '',
+    void Function(String value)? onSubmited,
+    void Function(String value)? onChanged,
+    TextEditingController? controller,
+    bool required = false,
+    Widget? suffix,
+    int? maxLines = 1,
+    bool? readOnly = false,
+  }) {
+    final primary = Get.find<PWThemeController>().theme.colorScheme.primary;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: TextFormField(
+        controller: controller ?? TextEditingController(text: initialValue),
+        maxLines: maxLines,
+        decoration: InputDecoration(
+          labelText: label,
+          border: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: primary,
+            ),
+          ),
+          suffix: suffix,
+        ),
+        onFieldSubmitted: onSubmited,
+        onChanged: onChanged,
+        textInputAction: TextInputAction.next,
+        readOnly: readOnly == true,
+        validator: (value) {
+          if (required && value == '') {
+            return 'Campo obrigatório';
+          }
+          return null;
+        },
+      ),
     );
   }
 
@@ -366,6 +436,29 @@ class PW extends StatelessWidget {
                     ),
                   ))
           : null,
+    );
+  }
+
+  static container({
+    required Widget child,
+    Color? color,
+    Color? borderColor,
+    EdgeInsets? padding,
+    EdgeInsets? margin,
+  }) {
+    final primay = Get.find<PWThemeController>().theme.colorScheme.primary;
+
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 500),
+      margin: margin ?? const EdgeInsets.all(4),
+      padding:
+          padding ?? const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+      decoration: BoxDecoration(
+        color: color,
+        border: Border.all(color: borderColor ?? primay),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: child,
     );
   }
 
