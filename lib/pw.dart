@@ -246,6 +246,7 @@ class PW extends StatelessWidget {
     int? maxLines = 1,
     bool? readOnly = false,
     bool? obscureText = false,
+    String? errorText,
   }) {
     final primary = Get.find<PWThemeController>().theme.colorScheme.primary;
     return Padding(
@@ -267,9 +268,10 @@ class PW extends StatelessWidget {
         textInputAction: TextInputAction.next,
         readOnly: readOnly == true,
         obscureText: obscureText == true,
+        autovalidateMode: required == true ? AutovalidateMode.always : null,
         validator: (value) {
           if (required && value == '') {
-            return 'Campo obrigatório';
+            return errorText ?? 'Campo obrigatório';
           }
           return null;
         },
@@ -466,11 +468,14 @@ class PW extends StatelessWidget {
 
   static checkboxTile({
     required void Function(bool?)? onChanged,
+    double? width,
     bool? value = false,
     required String title,
     String? subtitle,
+    bool decorate = true,
   }) {
     final primay = Get.find<PWThemeController>().theme.colorScheme.primary;
+
     _buidSubtitle(subtitle) {
       if (subtitle == null) return null;
       if (subtitle == '') return null;
@@ -482,10 +487,13 @@ class PW extends StatelessWidget {
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 500),
-      decoration: BoxDecoration(
-        border: Border.all(color: primay),
-        borderRadius: BorderRadius.circular(4),
-      ),
+      width: width,
+      decoration: decorate
+          ? BoxDecoration(
+              border: Border.all(color: primay),
+              borderRadius: BorderRadius.circular(4),
+            )
+          : null,
       child: CheckboxListTile(
         value: value ?? false,
         activeColor: primay,
