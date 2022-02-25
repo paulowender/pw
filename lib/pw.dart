@@ -485,13 +485,15 @@ class PW extends StatelessWidget {
               borderRadius: BorderRadius.circular(4),
             )
           : null,
-      child: CheckboxListTile(
-        value: value ?? false,
-        activeColor: primay,
-        onChanged: onChanged,
-        title: Text(title),
-        subtitle: _buidSubtitle(subtitle),
-      ),
+      child: title != ''
+          ? CheckboxListTile(
+              value: value ?? false,
+              activeColor: primay,
+              onChanged: onChanged,
+              title: Text(title),
+              subtitle: _buidSubtitle(subtitle),
+            )
+          : Checkbox(value: value, onChanged: onChanged, activeColor: primay),
     );
   }
 
