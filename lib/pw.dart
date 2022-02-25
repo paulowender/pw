@@ -51,17 +51,6 @@ class PW extends StatelessWidget {
         home: home,
         builder: builder,
         onInit: EasyLoading.init,
-        // translations: Messages(), // Traduções
-        // localizationsDelegates: const [
-        //   GlobalMaterialLocalizations.delegate,
-        //   GlobalWidgetsLocalizations.delegate,
-        //   GlobalCupertinoLocalizations.delegate,
-        // ],
-        // supportedLocales: const [
-        //   // Locale('pt', 'BR'),
-        //   Locale('en', 'US'),
-        // ],
-        // locale: Get.locale,
       ),
     );
   }
@@ -224,8 +213,8 @@ class PW extends StatelessWidget {
               style: confirmStyle,
               child: Text(confirmText),
               onPressed: () {
-                onConfirm();
                 Navigator.of(context).pop(true);
+                onConfirm();
               },
             ),
           ],
@@ -288,6 +277,7 @@ class PW extends StatelessWidget {
     bool required = false,
     Widget? suffix,
     int? maxLines = 1,
+    int? maxLength,
     bool? readOnly = false,
   }) {
     final primary = Get.find<PWThemeController>().theme.colorScheme.primary;
@@ -296,6 +286,7 @@ class PW extends StatelessWidget {
       child: TextFormField(
         controller: controller ?? TextEditingController(text: initialValue),
         maxLines: maxLines,
+        maxLength: maxLength,
         decoration: InputDecoration(
           labelText: label,
           border: OutlineInputBorder(
@@ -513,6 +504,8 @@ class PW extends StatelessWidget {
   }) {
     final primay = Get.find<PWThemeController>().theme.colorScheme.primary;
     try {
+      if (list.isEmpty) return Container();
+      if (list.length == 1) return itemBuilder(list.first);
       return AnimatedContainer(
           padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
           duration: const Duration(milliseconds: 500),
@@ -606,7 +599,26 @@ class PW extends StatelessWidget {
     );
   }
 
-  static Widget buildInfo(String text, String tooltip,
+  static Widget buildInfo(String text, String tooltip, {IconData? icon}) {
+    return Tooltip(
+      message: tooltip,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            if (icon != null) Icon(icon),
+            const SizedBox(width: 8),
+            Text(
+              text,
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  static Widget buildInfoExpanded(String text, String tooltip,
       {int flex = 1, IconData? icon}) {
     return Expanded(
       flex: flex,

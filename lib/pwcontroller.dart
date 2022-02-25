@@ -50,6 +50,7 @@ class PWController extends PWThemeController {
       context: Get.overlayContext!,
       builder: (context) => iten,
     );
+    // return await Get.to(() => iten);
   }
 
   void closePage<T>() {
