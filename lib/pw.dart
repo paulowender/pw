@@ -113,9 +113,10 @@ class PW extends StatelessWidget {
     required String title,
     required IconData icon,
     required void Function() onPressed,
+    Color? color,
   }) {
     return ElevatedButton.icon(
-      style: buttonStyle(),
+      style: buttonStyle(color: color),
       label: Text(title),
       icon: Icon(icon),
       onPressed: onPressed,
@@ -165,6 +166,7 @@ class PW extends StatelessWidget {
     return buttonWithIcon(
         title: title,
         icon: icon,
+        color: confirmColor,
         onPressed: () {
           confirmDialog(
             context,
