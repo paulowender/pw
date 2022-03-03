@@ -46,12 +46,11 @@ class PWController extends PWThemeController {
   // Abre a tela no dialog simulando uma nova tela
   Future<T?> openPage<T>(Widget iten) async {
     // Abre a tela
-    return await Get.dialog<T>(iten);
-    // return await showDialog<T>(
-    //   context: Get.overlayContext!,
-    //   builder: (context) => iten,
-    // );
-    // return await Get.to(() => iten);
+    // return await Get.dialog<T>(iten);
+    return await showDialog<T>(
+      context: Get.overlayContext!,
+      builder: (context) => iten,
+    );
   }
 
   void closePage<T>() {
