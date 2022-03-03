@@ -32,7 +32,7 @@ class PW extends StatelessWidget {
     Key? key,
     this.title = PWConfig.appName,
     required this.home,
-    required this.builder,
+    this.builder,
     this.themeLight,
     this.themeDark,
   }) : super(key: key);
