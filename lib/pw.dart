@@ -25,7 +25,7 @@ class PW extends StatelessWidget {
   final Widget Function(BuildContext, Widget?)? builder;
   final ThemeData? themeLight;
   final ThemeData? themeDark;
-  final bool? initModeDark;
+  final bool initModeDark;
 
   static get close => Get.back;
 
@@ -36,17 +36,14 @@ class PW extends StatelessWidget {
     this.builder,
     this.themeLight,
     this.themeDark,
-    this.initModeDark,
+    this.initModeDark = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<PWThemeController>(
-      init: PWThemeController(),
+      init: PWThemeController(isDark: initModeDark),
       builder: (controller) {
-        if (initModeDark != null) {
-          controller.changeThemeMode(initModeDark == true);
-        }
         return GetMaterialApp(
           theme: controller.isDark
               ? themeDark ?? controller.theme

@@ -6,6 +6,7 @@ import 'pwstoragecontroller.dart';
 
 class PWThemeController extends GetxController {
   bool isDark = false;
+  PWThemeController({this.isDark = false});
 
   ThemeData get theme => isDark ? PWTheme.dark() : PWTheme.light();
 
