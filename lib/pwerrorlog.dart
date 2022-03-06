@@ -19,6 +19,25 @@ class PWErrorLog {
     }
   }
 
+  static void saveLog(
+    String fileName,
+    String functionName,
+    dynamic error, {
+    bool showToast = false,
+  }) {
+    String message =
+        '${DateTime.now()} - $fileName - $functionName - ${error.toString()}\n';
+    String path = PWConfig.errorLogPath;
+    Directory(path).createSync();
+    File('$path/log.txt').writeAsStringSync(message, mode: FileMode.append);
+    if (showToast) {
+      EasyLoading.showError('Error: $error');
+    }
+    if (kDebugMode) {
+      print(message);
+    }
+  }
+
   static List<String> getLogs() {
     String path = PWConfig.errorLogPath;
     Directory(path).createSync();
