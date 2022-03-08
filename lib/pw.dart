@@ -229,6 +229,41 @@ class PW extends StatelessWidget {
     );
   }
 
+  // CONFIRM DIALOG
+  static Future<bool> messageDialog(
+    BuildContext context, {
+    String title = 'Atenção',
+    String content = '',
+    String confirmText = 'OK',
+    Color confirmColor = Colors.red,
+    required Function onConfirm,
+    bool dismissible = true,
+  }) async {
+    var confirmStyle =
+        ButtonStyle(backgroundColor: MaterialStateProperty.all(confirmColor));
+    return await showDialog(
+      context: context,
+      barrierDismissible: dismissible,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(title, textAlign: TextAlign.center),
+          content: Text(content, textAlign: TextAlign.center),
+          actionsAlignment: MainAxisAlignment.spaceEvenly,
+          actions: <Widget>[
+            ElevatedButton(
+              style: confirmStyle,
+              child: Text(confirmText),
+              onPressed: () {
+                Navigator.of(context).pop(true);
+                onConfirm();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   // INPUT FORM FIELD
   static Widget textField<T>({
     String label = '',
