@@ -7,6 +7,7 @@ class PWTheme {
         dividerColor: Colors.green[400],
         scaffoldBackgroundColor: Colors.blueGrey[50],
         iconTheme: IconThemeData(color: Colors.green[600]),
+        toggleableActiveColor: Colors.green[600],
         colorScheme: const ColorScheme.light(
           primary: Color(0XFF43A047),
           secondary: Color(0XFFA5D6A7),
@@ -27,6 +28,7 @@ class PWTheme {
         primaryColor: const Color(0XFFFFFFFF),
         dividerColor: const Color(0XFF43A047),
         iconTheme: const IconThemeData(color: Colors.white),
+        toggleableActiveColor: Colors.white,
         colorScheme: const ColorScheme.dark(
           primary: Color(0XFF43A047),
           secondary: Colors.green,
