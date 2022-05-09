@@ -42,7 +42,7 @@ class PWUtils {
   }
 
   // Retorna o valor no formato definido
-  static getDateFromString(String? valor) {
+  static getDateFromString(String valor) {
     try {
       if (valor == null) {
         return DateFormat(PWConfig.dateFormat).parse(DateTime.now().toString());
@@ -55,7 +55,7 @@ class PWUtils {
     }
   }
 
-  static formatDateSped(String? date) {
+  static formatDateSped(String date) {
     try {
       if (date != null) {
         return '${date.substring(0, 2)}/${date.substring(2, 4)}/${date.substring(4, 8)}';
