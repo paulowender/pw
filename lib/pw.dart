@@ -616,10 +616,11 @@ class PW extends StatelessWidget {
     );
   }
 
-  static Future<T> showSelector<T>(
-      {@required String title,
-      @required List<T> items,
-      @required Widget Function(T item) itemBuilder}) {
+  static Future<T> showSelector<T>({
+    @required String title,
+    @required List<T> items,
+    @required Widget Function(T item) itemBuilder,
+  }) {
     // Mostra o selector
     return showDialog<T>(
       context: Get.overlayContext,

@@ -53,6 +53,25 @@ class PWController extends PWThemeController {
     );
   }
 
+  // Abre a tela no dialog simulando uma nova tela
+  Future<T> openModal<T>(Widget iten, {double width, double height}) async {
+    // Abre a tela
+    // return await Get.dialog<T>(iten);
+    return await showDialog<T>(
+      context: Get.overlayContext,
+      builder: (context) => AlertDialog(
+        contentPadding: EdgeInsets.all(0),
+        titlePadding: EdgeInsets.all(0),
+        backgroundColor: Colors.transparent,
+        content: Container(
+          child: iten,
+          width: width,
+          height: height,
+        ),
+      ),
+    );
+  }
+
   void closePage<T>() {
     // Fecha a tela
     Get.back<T>();
