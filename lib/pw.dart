@@ -54,6 +54,11 @@ class PW extends StatelessWidget {
           home: home,
           builder: builder,
           onInit: EasyLoading.init,
+          locale: const Locale('pt', 'BR'),
+          localizationsDelegates: const [
+            DefaultWidgetsLocalizations.delegate,
+            DefaultMaterialLocalizations.delegate,
+          ],
         );
       },
     );
