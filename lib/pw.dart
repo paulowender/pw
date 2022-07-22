@@ -18,21 +18,20 @@ export 'package:pw/pwthemeswitch.dart' show PWThemeSwitch;
 export 'package:pw/pwutils.dart' show PWUtils;
 
 class PW extends StatelessWidget {
-  static Color primary =
-      Get.find<PWThemeController>().theme.colorScheme.primary;
+  static Color primary = Get.find<PWThemeController>().theme.colorScheme.primary;
   final String title;
   final Widget home;
-  final Widget Function(BuildContext, Widget) builder;
-  final ThemeData themeLight;
-  final ThemeData themeDark;
+  final Widget Function(BuildContext, Widget?)? builder;
+  final ThemeData? themeLight;
+  final ThemeData? themeDark;
   final bool initModeDark;
 
   static get close => Get.back;
 
   const PW({
-    Key key,
+    Key? key,
     this.title = PWConfig.appName,
-    @required this.home,
+    required this.home,
     this.builder,
     this.themeLight,
     this.themeDark,
@@ -45,9 +44,7 @@ class PW extends StatelessWidget {
       init: PWThemeController(isDark: initModeDark),
       builder: (controller) {
         return GetMaterialApp(
-          theme: controller.isDark
-              ? themeDark ?? controller.theme
-              : themeLight ?? controller.theme,
+          theme: controller.isDark ? themeDark ?? controller.theme : themeLight ?? controller.theme,
           debugShowCheckedModeBanner: false,
           defaultTransition: Transition.rightToLeftWithFade,
           title: title,
@@ -66,11 +63,11 @@ class PW extends StatelessWidget {
 
   // BUTTON
   static Tooltip button({
-    @required String title,
-    String tooltip,
-    Color color,
-    Color borderColor,
-    @required void Function() onPressed,
+    required String title,
+    String? tooltip,
+    Color? color,
+    Color? borderColor,
+    required void Function() onPressed,
   }) {
     return Tooltip(
       message: tooltip ?? '',
@@ -95,8 +92,8 @@ class PW extends StatelessWidget {
 
   // TEXTBUTTON
   static TextButton buttonText({
-    @required String title,
-    @required void Function() onPressed,
+    required String title,
+    required void Function() onPressed,
   }) {
     return TextButton(
       child: Text(title),
@@ -106,9 +103,9 @@ class PW extends StatelessWidget {
 
   // TEXTBUTTON
   static TextButton buttonTextWithIcon({
-    @required String title,
-    @required Icon icon,
-    @required void Function() onPressed,
+    required String title,
+    required Icon icon,
+    required void Function() onPressed,
   }) {
     return TextButton.icon(
       label: Text(title),
@@ -119,10 +116,10 @@ class PW extends StatelessWidget {
 
   // BUTTON WITH ICON
   static ElevatedButton buttonWithIcon({
-    @required String title,
-    @required IconData icon,
-    @required void Function() onPressed,
-    Color color,
+    required String title,
+    required IconData icon,
+    required void Function() onPressed,
+    Color? color,
   }) {
     return ElevatedButton.icon(
       style: buttonStyle(color: color),
@@ -135,13 +132,13 @@ class PW extends StatelessWidget {
   // BUTTON WITH CONFIRM
   static Widget buttonWithConfirm(
     BuildContext context, {
-    @required String title,
+    required String title,
     String content = 'Deseja realmente executar esta ação?',
     String confirmText = 'Confirmar',
     String cancelText = 'Cancelar',
     Color confirmColor = Colors.red,
     Color cancelColor = Colors.grey,
-    @required Function onConfirm,
+    required Function onConfirm,
   }) {
     return button(
         title: title,
@@ -163,13 +160,13 @@ class PW extends StatelessWidget {
   // BUTTON WITH CONFIRM
   static Widget buttonWithConfirmIcon(
     BuildContext context, {
-    @required String title,
+    required String title,
     String content = 'Deseja realmente executar esta ação?',
     String confirmText = 'Confirmar',
     String cancelText = 'Cancelar',
     Color confirmColor = Colors.red,
     Color cancelColor = Colors.grey,
-    @required Function onConfirm,
+    required Function onConfirm,
     IconData icon = Icons.check,
   }) {
     return buttonWithIcon(
@@ -199,12 +196,10 @@ class PW extends StatelessWidget {
     String cancelText = 'Cancelar',
     Color confirmColor = Colors.red,
     Color cancelColor = const Color.fromARGB(255, 56, 56, 56),
-    @required Function onConfirm,
+    required Function onConfirm,
   }) async {
-    var confirmStyle =
-        ButtonStyle(backgroundColor: MaterialStateProperty.all(confirmColor));
-    var cancelStyle =
-        ButtonStyle(backgroundColor: MaterialStateProperty.all(cancelColor));
+    var confirmStyle = ButtonStyle(backgroundColor: MaterialStateProperty.all(confirmColor));
+    var cancelStyle = ButtonStyle(backgroundColor: MaterialStateProperty.all(cancelColor));
     return await showDialog(
       context: context,
       builder: (context) {
@@ -241,11 +236,10 @@ class PW extends StatelessWidget {
     String content = '',
     String confirmText = 'OK',
     Color confirmColor = Colors.red,
-    @required Function onConfirm,
+    required Function onConfirm,
     bool dismissible = true,
   }) async {
-    var confirmStyle =
-        ButtonStyle(backgroundColor: MaterialStateProperty.all(confirmColor));
+    var confirmStyle = ButtonStyle(backgroundColor: MaterialStateProperty.all(confirmColor));
     return await showDialog(
       context: context,
       barrierDismissible: dismissible,
@@ -273,15 +267,15 @@ class PW extends StatelessWidget {
   static Widget textField<T>({
     String label = '',
     String initialValue = '',
-    void Function(String value) onSubmited,
-    void Function(String value) onChanged,
-    TextEditingController controller,
+    void Function(String value)? onSubmited,
+    void Function(String value)? onChanged,
+    TextEditingController? controller,
     bool required = false,
-    Widget suffix,
+    Widget? suffix,
     int maxLines = 1,
     bool readOnly = false,
     bool obscureText = false,
-    String errorText,
+    String? errorText,
   }) {
     final primary = Get.find<PWThemeController>().theme.colorScheme.primary;
     return Padding(
@@ -318,12 +312,12 @@ class PW extends StatelessWidget {
   static Widget formField<T>(
     String label,
     String initialValue,
-    void Function(String value) onSubmited, {
-    TextEditingController controller,
+    void Function(String value)? onSubmited, {
+    TextEditingController? controller,
     bool required = false,
-    Widget suffix,
+    Widget? suffix,
     int maxLines = 1,
-    int maxLength,
+    int? maxLength,
     bool readOnly = false,
   }) {
     final primary = Get.find<PWThemeController>().theme.colorScheme.primary;
@@ -359,10 +353,10 @@ class PW extends StatelessWidget {
   static Widget formFieldInt<T>(
     String label,
     String initialValue,
-    void Function(int value) onSubmited, {
-    TextEditingController controller,
+    void Function(int value)? onSubmited, {
+    TextEditingController? controller,
     bool required = false,
-    Widget suffix,
+    Widget? suffix,
     int maxLines = 1,
     bool readOnly = false,
   }) {
@@ -394,8 +388,8 @@ class PW extends StatelessWidget {
   }
 
   // INPUT DOUBLE FORM FIELD
-  static Widget formFieldDouble<T>(String label, String initialValue,
-      void Function(double value) onSubmited) {
+  static Widget formFieldDouble<T>(
+      String label, String initialValue, void Function(double value) onSubmited) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: TextFormField(
@@ -422,13 +416,13 @@ class PW extends StatelessWidget {
 
   // ICON BUTTON
   static IconButton iconButton({
-    @required IconData icon,
-    String tooltip,
-    Color color,
-    @required void Function() onPressed,
+    required IconData icon,
+    String? tooltip,
+    Color? color,
+    required void Function() onPressed,
   }) {
     return IconButton(
-      tooltip: tooltip ?? '',
+      tooltip: tooltip,
       icon: Icon(icon, color: color),
       onPressed: onPressed,
     );
@@ -437,14 +431,14 @@ class PW extends StatelessWidget {
   // ICON BUTTON WITH CONFIRM
   static Widget iconButtonWithConfirm(
     BuildContext context, {
-    @required IconData icon,
+    required IconData icon,
     String title = 'Confirmação',
     String content = 'Deseja realmente executar esta ação?',
     String confirmText = 'Confirmar',
     String cancelText = 'Cancelar',
     Color confirmColor = Colors.red,
     Color cancelColor = const Color.fromARGB(255, 41, 41, 41),
-    @required Function onConfirm,
+    required Function onConfirm,
   }) {
     return iconButton(
         icon: icon,
@@ -464,36 +458,34 @@ class PW extends StatelessWidget {
         });
   }
 
-  static buttonStyle({Color color, Color borderColor}) {
+  static ButtonStyle? buttonStyle({Color? color, Color? borderColor}) {
     return ButtonStyle(
       backgroundColor: MaterialStateProperty.all(
           color ?? Get.find<PWThemeController>().theme.colorScheme.primary),
       shape: borderColor != null
-          ? MaterialStateProperty.resolveWith(
-              (states) => RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    side: BorderSide(
-                      color: borderColor,
-                    ),
-                  ))
+          ? MaterialStateProperty.resolveWith((states) => RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+                side: BorderSide(
+                  color: borderColor,
+                ),
+              ))
           : null,
     );
   }
 
   static container({
-    @required Widget child,
-    Color color,
-    Color borderColor,
-    EdgeInsets padding,
-    EdgeInsets margin,
+    required Widget child,
+    Color? color,
+    Color? borderColor,
+    EdgeInsets? padding,
+    EdgeInsets? margin,
   }) {
     final primay = Get.find<PWThemeController>().theme.colorScheme.primary;
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 500),
       margin: margin ?? const EdgeInsets.all(4),
-      padding:
-          padding ?? const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+      padding: padding ?? const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
       decoration: BoxDecoration(
         color: color,
         border: Border.all(color: borderColor ?? primay),
@@ -504,11 +496,11 @@ class PW extends StatelessWidget {
   }
 
   static checkboxTile({
-    @required void Function(bool) onChanged,
-    double width,
+    required void Function(bool?)? onChanged,
+    double? width,
     bool value = false,
-    @required String title,
-    String subtitle,
+    required String title,
+    String? subtitle,
     bool decorate = true,
   }) {
     final primay = Get.find<PWThemeController>().theme.colorScheme.primary;
@@ -533,7 +525,7 @@ class PW extends StatelessWidget {
           : null,
       child: title != ''
           ? CheckboxListTile(
-              value: value ?? false,
+              value: value,
               activeColor: primay,
               onChanged: onChanged,
               title: Text(title),
@@ -544,11 +536,11 @@ class PW extends StatelessWidget {
   }
 
   static selectDropdown<T>({
-    @required String title,
-    @required T selectedValue,
-    @required List<T> list,
-    @required void Function(T) onChanged,
-    @required Widget Function(T item) itemBuilder,
+    required String title,
+    required T selectedValue,
+    required List<T> list,
+    required void Function(T?)? onChanged,
+    required Widget Function(T item) itemBuilder,
   }) {
     final primay = Get.find<PWThemeController>().theme.colorScheme.primary;
     try {
@@ -587,9 +579,9 @@ class PW extends StatelessWidget {
   }
 
   static inputDialog({
-    @required String title,
-    @required List<InputDialog> inputs,
-    @required List<Tooltip> actions,
+    required String title,
+    required List<InputDialog> inputs,
+    required List<Tooltip> actions,
   }) {
     final primay = Get.find<PWThemeController>().theme.colorScheme.primary;
     return AlertDialog(
@@ -621,14 +613,14 @@ class PW extends StatelessWidget {
     );
   }
 
-  static Future<T> showSelector<T>({
-    @required String title,
-    @required List<T> items,
-    @required Widget Function(T item) itemBuilder,
+  static Future<T?> showSelector<T>({
+    required String title,
+    required List<T> items,
+    required Widget Function(T item) itemBuilder,
   }) {
     // Mostra o selector
     return showDialog<T>(
-      context: Get.overlayContext,
+      context: Get.overlayContext!,
       barrierDismissible: false,
       builder: (context) => AlertDialog(
         title: Text(title),
@@ -648,7 +640,7 @@ class PW extends StatelessWidget {
     );
   }
 
-  static Widget buildInfo(String text, String tooltip, {IconData icon}) {
+  static Widget buildInfo(String text, String tooltip, {IconData? icon}) {
     return Tooltip(
       message: tooltip,
       child: Padding(
@@ -667,8 +659,7 @@ class PW extends StatelessWidget {
     );
   }
 
-  static Widget buildInfoExpanded(String text, String tooltip,
-      {int flex = 1, IconData icon}) {
+  static Widget buildInfoExpanded(String text, String tooltip, {int flex = 1, IconData? icon}) {
     return Expanded(
       flex: flex,
       child: Tooltip(
@@ -696,22 +687,22 @@ class InputDialog {
     this.initialText,
     this.hintText,
     this.obscureText = false,
-    this.validator,
+    required this.validator,
     this.keyboardType,
     this.prefixText,
     this.suffixText,
     this.minLines,
     this.maxLines = 1,
-    @required this.controller,
+    required this.controller,
   });
-  final String initialText;
-  final String hintText;
+  final String? initialText;
+  final String? hintText;
   final bool obscureText;
-  final FormFieldValidator<String> validator;
-  final TextInputType keyboardType;
-  final String prefixText;
-  final String suffixText;
-  final int minLines;
+  final FormFieldValidator<String?> validator;
+  final TextInputType? keyboardType;
+  final String? prefixText;
+  final String? suffixText;
+  final int? minLines;
   final int maxLines;
   final TextEditingController controller;
 }

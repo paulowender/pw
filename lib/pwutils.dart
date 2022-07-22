@@ -10,16 +10,13 @@ import 'pwerrorlog.dart';
 
 class PWUtils {
   // Retorna a data no formato definido
-  static String getDate(DateTime date) =>
-      DateFormat(PWConfig.dateFormat).format(date);
+  static String getDate(DateTime date) => DateFormat(PWConfig.dateFormat).format(date);
 
   // Retorna a data no formato definido
-  static String getTime(DateTime date) =>
-      DateFormat(PWConfig.timeFormat).format(date);
+  static String getTime(DateTime date) => DateFormat(PWConfig.timeFormat).format(date);
 
   // Retorna a data no formato definido
-  static String getDateTime(DateTime date) =>
-      DateFormat(PWConfig.dateTimeFormat).format(date);
+  static String getDateTime(DateTime date) => DateFormat(PWConfig.dateTimeFormat).format(date);
 
   // Retorna o valor no formato definido
   static String getMoney(double money) =>
@@ -42,7 +39,7 @@ class PWUtils {
   }
 
   // Retorna o valor no formato definido
-  static getDateFromString(String valor) {
+  static getDateFromString(String? valor) {
     try {
       if (valor == null) {
         return DateFormat(PWConfig.dateFormat).parse(DateTime.now().toString());
@@ -55,7 +52,7 @@ class PWUtils {
     }
   }
 
-  static formatDateSped(String date) {
+  static formatDateSped(String? date) {
     try {
       if (date != null) {
         return '${date.substring(0, 2)}/${date.substring(2, 4)}/${date.substring(4, 8)}';
@@ -69,8 +66,7 @@ class PWUtils {
   }
 
   // Retorna o valor do map referente ao nome da chave
-  static String translate(String key, Map<String, String> traducoes) =>
-      traducoes[key] ?? key;
+  static String translate(String key, Map<String, String> traducoes) => traducoes[key] ?? key;
 
   static copyToClipboard(String text) {
     FlutterClipboard.copy(text).then((value) {
@@ -80,8 +76,7 @@ class PWUtils {
     });
   }
 
-  static get isDesktop =>
-      GetPlatform.isWindows || GetPlatform.isLinux || GetPlatform.isMacOS;
+  static get isDesktop => GetPlatform.isWindows || GetPlatform.isLinux || GetPlatform.isMacOS;
 
   // Retorna se é double
   static bool isDouble(String value) {

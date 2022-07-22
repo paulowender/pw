@@ -5,9 +5,8 @@ import 'pwthemecontroller.dart';
 
 class PWThemeSwitch extends StatelessWidget {
   final bool iconMode;
-  final Color iconColor;
-  const PWThemeSwitch({Key key, this.iconMode = false, this.iconColor})
-      : super(key: key);
+  final Color? iconColor;
+  const PWThemeSwitch({Key? key, this.iconMode = false, this.iconColor}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     if (iconMode) {
@@ -17,7 +16,7 @@ class PWThemeSwitch extends StatelessWidget {
     }
   }
 
-  static Widget switchButton({String text}) {
+  static Widget switchButton({String? text}) {
     return GetBuilder<PWThemeController>(
       init: PWThemeController(),
       builder: (theme) {
@@ -34,7 +33,7 @@ class PWThemeSwitch extends StatelessWidget {
     );
   }
 
-  static Widget iconButton({String text, Color iconColor}) {
+  static Widget iconButton({String? text, Color? iconColor}) {
     return GetBuilder<PWThemeController>(
       init: PWThemeController(),
       builder: (theme) {

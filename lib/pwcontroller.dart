@@ -5,7 +5,7 @@ import 'package:pw/pw.dart';
 
 class PWController extends PWThemeController {
   // Tela aberta na direita
-  Widget openedMenu;
+  Widget? openedMenu;
   String openedMenuName = "";
 
   // loading
@@ -44,26 +44,26 @@ class PWController extends PWThemeController {
   }
 
   // Abre a tela no dialog simulando uma nova tela
-  Future<T> openPage<T>(Widget iten) async {
+  Future<T?> openPage<T>(Widget iten) async {
     // Abre a tela
     // return await Get.dialog<T>(iten);
     return await showDialog<T>(
-      context: Get.overlayContext,
+      context: Get.overlayContext!,
       builder: (context) => iten,
     );
   }
 
   // Abre a tela no dialog simulando uma nova tela
-  Future<T> openModal<T>(Widget iten, {double width, double height}) async {
+  Future<T?> openModal<T>(Widget iten, {double? width, double? height}) async {
     // Abre a tela
     // return await Get.dialog<T>(iten);
     return await showDialog<T>(
-      context: Get.overlayContext,
+      context: Get.overlayContext!,
       builder: (context) => AlertDialog(
-        contentPadding: EdgeInsets.all(0),
-        titlePadding: EdgeInsets.all(0),
+        contentPadding: const EdgeInsets.all(0),
+        titlePadding: const EdgeInsets.all(0),
         backgroundColor: Colors.transparent,
-        content: Container(
+        content: SizedBox(
           child: iten,
           width: width,
           height: height,
