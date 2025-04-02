@@ -18,7 +18,8 @@ export 'package:pw/pwthemeswitch.dart' show PWThemeSwitch;
 export 'package:pw/pwutils.dart' show PWUtils;
 
 class PW extends StatelessWidget {
-  static Color primary = Get.find<PWThemeController>().theme.colorScheme.primary;
+  static Color primary =
+      Get.find<PWThemeController>().theme.colorScheme.primary;
   final String title;
   final Widget home;
   final Widget Function(BuildContext, Widget?)? builder;
@@ -44,7 +45,9 @@ class PW extends StatelessWidget {
       init: PWThemeController(isDark: initModeDark),
       builder: (controller) {
         return GetMaterialApp(
-          theme: controller.isDark ? themeDark ?? controller.theme : themeLight ?? controller.theme,
+          theme: controller.isDark
+              ? themeDark ?? controller.theme
+              : themeLight ?? controller.theme,
           debugShowCheckedModeBanner: false,
           defaultTransition: Transition.rightToLeftWithFade,
           title: title,
@@ -123,7 +126,14 @@ class PW extends StatelessWidget {
   }) {
     return ElevatedButton.icon(
       style: buttonStyle(color: color),
-      label: Text(title),
+      label: Text(
+        title,
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
       icon: Icon(icon),
       onPressed: onPressed,
     );
@@ -198,8 +208,10 @@ class PW extends StatelessWidget {
     Color cancelColor = const Color.fromARGB(255, 56, 56, 56),
     required Function onConfirm,
   }) async {
-    var confirmStyle = ButtonStyle(backgroundColor: MaterialStateProperty.all(confirmColor));
-    var cancelStyle = ButtonStyle(backgroundColor: MaterialStateProperty.all(cancelColor));
+    var confirmStyle =
+        ButtonStyle(backgroundColor: MaterialStateProperty.all(confirmColor));
+    var cancelStyle =
+        ButtonStyle(backgroundColor: MaterialStateProperty.all(cancelColor));
     return await showDialog(
       context: context,
       builder: (context) {
@@ -239,7 +251,8 @@ class PW extends StatelessWidget {
     required Function onConfirm,
     bool dismissible = true,
   }) async {
-    var confirmStyle = ButtonStyle(backgroundColor: MaterialStateProperty.all(confirmColor));
+    var confirmStyle =
+        ButtonStyle(backgroundColor: MaterialStateProperty.all(confirmColor));
     return await showDialog(
       context: context,
       barrierDismissible: dismissible,
@@ -388,8 +401,8 @@ class PW extends StatelessWidget {
   }
 
   // INPUT DOUBLE FORM FIELD
-  static Widget formFieldDouble<T>(
-      String label, String initialValue, void Function(double value) onSubmited) {
+  static Widget formFieldDouble<T>(String label, String initialValue,
+      void Function(double value) onSubmited) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: TextFormField(
@@ -463,12 +476,13 @@ class PW extends StatelessWidget {
       backgroundColor: MaterialStateProperty.all(
           color ?? Get.find<PWThemeController>().theme.colorScheme.primary),
       shape: borderColor != null
-          ? MaterialStateProperty.resolveWith((states) => RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-                side: BorderSide(
-                  color: borderColor,
-                ),
-              ))
+          ? MaterialStateProperty.resolveWith(
+              (states) => RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    side: BorderSide(
+                      color: borderColor,
+                    ),
+                  ))
           : null,
     );
   }
@@ -485,7 +499,8 @@ class PW extends StatelessWidget {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 500),
       margin: margin ?? const EdgeInsets.all(4),
-      padding: padding ?? const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+      padding:
+          padding ?? const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
       decoration: BoxDecoration(
         color: color,
         border: Border.all(color: borderColor ?? primay),
@@ -659,7 +674,8 @@ class PW extends StatelessWidget {
     );
   }
 
-  static Widget buildInfoExpanded(String text, String tooltip, {int flex = 1, IconData? icon}) {
+  static Widget buildInfoExpanded(String text, String tooltip,
+      {int flex = 1, IconData? icon}) {
     return Expanded(
       flex: flex,
       child: Tooltip(

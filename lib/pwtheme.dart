@@ -7,7 +7,10 @@ class PWTheme {
         dividerColor: Colors.green[400],
         scaffoldBackgroundColor: Colors.blueGrey[50],
         iconTheme: IconThemeData(color: Colors.green[600]),
-        toggleableActiveColor: Colors.green[600],
+        toggleButtonsTheme: ToggleButtonsThemeData(
+          selectedColor: Colors.green[600],
+          selectedBorderColor: Colors.green[600],
+        ),
         colorScheme: const ColorScheme.light(
           primary: Color(0XFF43A047),
           secondary: Color(0XFFA5D6A7),
@@ -17,7 +20,7 @@ class PWTheme {
           error: Color(0XFFB72C2C),
           primaryContainer: Colors.white,
         ),
-        cardTheme: const CardTheme(
+        cardTheme: const CardThemeData(
           color: Color(0XFFFFFFFF),
         ));
     return theme;
@@ -28,7 +31,10 @@ class PWTheme {
         primaryColor: const Color(0XFFFFFFFF),
         dividerColor: const Color(0XFF43A047),
         iconTheme: const IconThemeData(color: Colors.white),
-        toggleableActiveColor: Colors.white,
+        toggleButtonsTheme: const ToggleButtonsThemeData(
+          selectedColor: Colors.white,
+          selectedBorderColor: Colors.white,
+        ),
         colorScheme: const ColorScheme.dark(
           primary: Color(0XFF43A047),
           secondary: Colors.green,
